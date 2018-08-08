@@ -9,19 +9,19 @@ import { LoginService } from './service/login.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  
+
   appConfig: AppConfig;
   appState: LoginService;
 
   state: boolean
-  
+
   dane_z_main: string = 'Witaj w komponencie menu';
-  
+
   constructor(_app: AppConfig, _appState: LoginService){
     this.appConfig = _app;
     this.appState = _appState;
   }
 
-  title = 'Moja przykładowa aplikacja';
+  title = 'Weryfikacja pobrań certyfikatów PKI';
 
 }

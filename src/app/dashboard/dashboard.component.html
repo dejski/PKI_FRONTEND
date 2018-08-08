@@ -1,11 +1,23 @@
-
-
-<div class="starter-template">
-        <h1>Bootstrap starter template</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+<div class="data-container">
+  <p class="data-header">Parametry wyszukiwania:</p>
+  <form [formGroup]="searchUserForm">
+    <div class="row form-group">
+      <div class="col-sm-4">
+        <label>Nazwisko:</label>
+        <input formControlName="nazwisko" class="form-control" type="text" placeholder="Nazwisko">
+      </div>
+      <div class="col-sm-4">
+        <label>PESEL:</label>
+        <input formControlName="pesel" class="form-control" type="number" placeholder="PESEL">
+      </div>
+      <div class="col-sm-4">
+        <label>LOGIN:</label>
+        <input formControlName="login" class="form-control" type="text" placeholder="LOGIN">
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <button type="submit" class="btn btn-primary">Szukaj</button>
+    </div>
+  </form>
+  <pre>{{searchUserForm.value | json}}</pre>
 </div>
-
-<p>
-    dashboard works!
-  </p>
-
