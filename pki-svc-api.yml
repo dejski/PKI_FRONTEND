@@ -1,0 +1,549 @@
+swagger: '2.0'
+info:
+  version: '2.0'
+  title: pki-svc-api
+  description: |
+    Usługa interfejsowa dla GUI 
+    Przeglądarki Rejetrów Użytkowników Branżowych
+basePath: /pki-svc-api/v1
+tags:
+  - name: Klienci
+    description: Wyszukiwanie aktywności i certyfikatów użytkowników PKI
+  - name: Użytkownicy
+    description: Wyszukiwanie użytkowników branżowych w Rejestrach wewnętrznych
+  - name: Konfiguracja
+    description: Konfiguracja połączeń do Rejestrów Wewnętrznych
+schemes:
+  - http
+  - https
+produces:
+  - application/json
+paths:
+  /klient:
+    get:
+      summary: Wyszukiwanie aktywności i certyfikatów użytkownika PKI
+      description: |
+        Wywołanie bez parametrów zwraca listę wszystkich użytkowników branżowych.
+        Parametry zawężają zwracany zbiór obiektów.
+      operationId: getAllClients
+      tags:
+        - Klienci
+      produces:
+        - application/json
+      parameters:
+        - name: naz
+          in: query
+          required: false
+          description: Nazwisko
+          type: string
+        - name: pes
+          in: query
+          required: false
+          description: PESEL
+          type: string
+          pattern: 'd{11}'
+        - name: log
+          in: query
+          required: false
+          description: Login w LDAP Rejestr PD
+          type: string
+          minLength: 11
+          maxLength: 11
+      responses:
+        '200':
+          description: Lista znalezionych użytkowników branżowych
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/UzytkownikDto'
+        '400':
+          description: Błędne lub brakujące parametry wejściowe.
+          schema:
+            $ref: '#/definitions/ValidationErrorInfo'
+        '500':
+          description: Wystąpił błąd wewnętrzny.
+          schema:
+            $ref: '#/definitions/ErrorInfo'
+  '/klient/{log}':
+    get:
+      summary: Szczegóły pojedyńczego użytkownika
+      description: Zwraca szczegółowe informacje o wybranym użytkowniku, dla któego sprawdzamy czynności i certyfikaty PKI
+      operationId: getKlientData
+      tags:
+        - Klienci
+      produces:
+        - application/json
+      parameters:
+        - name: log
+          in: path
+          required: true
+          description: Login użytkownika
+          type: string
+      responses:
+        '200':
+          description: Szczegóły użytkownika.
+          schema:
+            $ref: '#/definitions/UzytkownikDto'
+        '400':
+          description: Błędne lub brakujące parametry wejściowe.
+          schema:
+            $ref: '#/definitions/ValidationErrorInfo'
+        '500':
+          description: Wystąpił błąd wewnętrzny.
+          schema:
+            $ref: '#/definitions/ErrorInfo'
+  '/klient/{log}/{idRawCerticate}':
+    get:
+      summary: Pobranie certyfikatu i hasło
+      description: Zwraca binarny obiekt 
+      operationId: getKlientCertificate
+      tags:
+          - Klienci
+      produces:
+        - application/zip
+      parameters:
+        - name: idRawCerticate
+          in: path
+          required: true
+          description: Identyfikator pliki PXF
+          type: string
+        - name: log
+          in: path
+          required: true
+          description: Login użytkownika
+          type: string
+      responses:
+          '200':
+            description: Szczegóły użytkownika.
+            schema:
+              type: string
+              format: binary
+          '400':
+            description: Błędne lub brakujące parametry wejściowe.
+            schema:
+              $ref: '#/definitions/ValidationErrorInfo'
+          '500':
+            description: Wystąpił błąd wewnętrzny.
+            schema:
+              $ref: '#/definitions/ErrorInfo'
+  /uzytkownik:
+    get:
+      summary: Wyszukiwanie użytkowników branżowych
+      description: |
+        Wywołanie bez parametrów zwraca listę wszystkich użytkowników branżowych.
+        Parametry zawężają zwracany zbiór obiektów.
+      operationId: getAllUsers
+      tags:
+        - Użytkownicy
+      produces:
+        - application/json
+      parameters:
+        - name: dn
+          in: query
+          required: false
+          description: Distinguish Name
+          type: string
+        - name: im
+          in: query
+          required: false
+          description: Imię
+          type: string
+        - name: naz
+          in: query
+          required: false
+          description: Nazwisko
+          type: string
+        - name: pes
+          in: query
+          required: false
+          description: PESEL
+          type: string
+          pattern: 'd{11}'
+        - name: nip
+          in: query
+          required: false
+          description: NIP
+          type: string
+          pattern: '\d{10}'
+        - name: typ
+          in: query
+          required: false
+          description: Typ
+          type: string
+          enum:
+            - komornik
+            - notariusz
+            - naczelnik
+        - name: sta
+          in: query
+          required: false
+          description: Status
+          type: string
+          enum:
+            - aktywny
+            - zablokowany
+        - name: ul
+          description: ulica
+          in: query
+          required: false
+          type: string
+        - name: mie
+          description: miejscowość
+          in: query
+          type: string
+          required: false
+        - name: kod
+          description: kod pocztowy
+          in: query
+          required: false
+          type: string
+          pattern: '\d{5}'
+        - name: ema
+          description: email
+          in: query
+          required: false
+          type: string
+          format: email
+        - name: org
+          description: organizacja
+          in: query
+          required: false
+          type: string
+        - name: rol
+          description: nazwa roli z Active Directory
+          in: query
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Lista znalezionych użytkowników branżowych
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/UzytkownikBranzowy'
+        '400':
+          description: Błędne lub brakujące parametry wejściowe.
+          schema:
+            $ref: '#/definitions/ValidationErrorInfo'
+        '500':
+          description: Wystąpił błąd wewnętrzny.
+          schema:
+            $ref: '#/definitions/ErrorInfo'
+  '/uzytkownik/{dn}':
+    get:
+      summary: Szczegóły pojedyńczego użytkownika
+      description: Zwraca szczegółowe informacje o wybranym użytkowniku branżowym
+      operationId: getUserData
+      tags:
+        - Użytkownicy
+      produces:
+        - application/json
+      parameters:
+        - name: dn
+          in: path
+          required: true
+          description: Distinguish Name
+          type: string
+      responses:
+        '200':
+          description: Szczegóły użytkownika.
+          schema:
+            $ref: '#/definitions/UzytkownikBranzowy'
+        '400':
+          description: Błędne lub brakujące parametry wejściowe.
+          schema:
+            $ref: '#/definitions/ValidationErrorInfo'
+        '500':
+          description: Wystąpił błąd wewnętrzny.
+          schema:
+            $ref: '#/definitions/ErrorInfo'
+definitions:
+  UzytkownikDto:
+    type: object
+    description: Użytkownik dla którego wyszukujemy informacje o aktywnościach i certyfikatach
+    properties:
+      distinquishedName:
+        description: Distinguished Name
+        type: string
+      imie:
+        description: Imię
+        type: string
+      nazwisko:
+        description: Nazwisko
+        type: string
+      pesel:
+        description: PESEL
+        type: string
+        pattern: '\d{11}'
+      login:
+        description: Login użytkownika w LDAP Rejestr PD
+        type: string
+        pattern: '\d{11}'
+      czynnosc:
+        description: Historia aktywności użytkownika w PKI
+        type: array
+        items:
+          $ref: '#/definitions/CzynnoscDto'
+      certyfikat:
+        type: array
+        items:
+          $ref: '#/definitions/CertificateDto'
+    required:
+      - distinquishedName
+      - pesel
+  CzynnoscDto:
+    type: object
+    description: Użytkownik dla którego wyszukujemy informacje o aktywnościach i certyfikatach
+    properties:
+      data:
+        description: Data i czas wykonania czynności
+        type: string
+        format: date-time
+      typ:
+        description: Typ czynności
+        type: string
+        enum: [Certyfikat | Hasło | Logowanie]
+      opis:
+        description: Opis Czynności
+        type: string
+  UzytkownikBranzowy:
+    description: Użytkownik branżowy
+    type: object
+    properties:
+      distinquishedName:
+        description: Distinguished Name
+        type: string
+      imie:
+        description: Imię
+        type: string
+      nazwisko:
+        description: Nazwisko
+        type: string
+      nazwa:
+        description: Pełna nazwa
+        type: string
+      opis:
+        description: Opis użytkownika
+        type: string
+      status:
+        description: Status użytkownika
+        type: string
+        enum:
+          - AKTYWNY
+          - ZABLOKOWANY
+      typ:
+        description: Typ użytkownika
+        type: string
+        enum:
+          - NACZELNIK
+          - KOMORNIK
+          - NOTARIUSZ
+      pesel:
+        description: PESEL
+        type: string
+        pattern: '\d{11}'
+      nip:
+        description: NIP
+        type: string
+        pattern: '\d{10}'
+      adres:
+        $ref: '#/definitions/Adres'
+      organizacja:
+        $ref: '#/definitions/JednostkaOrganizacyjna'
+      uprawnienie:
+        type: array
+        items:
+          $ref: '#/definitions/Rola'
+      certyfikat:
+        type: array
+        items:
+          $ref: '#/definitions/CertificateDto'
+      login:
+        description: Login z pola sAMAccountName
+        type: string
+        minLength: 11
+        maxLength: 11
+    required:
+      - distinquishedName
+  Rola:
+    description: Uprawnienia użytkownika do systemów MS z domeny RejestrPd
+    type: object
+    properties:
+      commonName:
+        description: Nazwa roli
+        type: string
+      distinquishedName:
+        description: Distinguished Name
+        type: string
+      description:
+        description: Opis roli
+        type: string
+    required:
+      - distinquishedName
+  JednostkaOrganizacyjna:
+    description: Jednostaka organizacyjna do któej należy użytkownik
+    type: object
+    properties:
+      name:
+        description: Nazwa jednostki organizacyjnej
+        type: string
+      distinquishedName:
+        description: Distinguished Name
+        type: string
+      kategoria:
+        description: Kategoria jednostki organizacyjnej
+        type: string
+        enum:
+          - KANCELARIA_KOMORNICZA
+          - KANCELARIA_NOTARIALNA
+          - URZAD_SKARBOWY
+      adres:
+        $ref: '#/definitions/Adres'
+    required:
+      - distinquishedName
+      - kategoria
+  Adres:
+    description: Dane adresowe
+    type: object
+    properties:
+      ulica:
+        description: Ulica
+        type: string
+      budynek:
+        description: Numer budynku
+        type: string
+      lokal:
+        description: Numer lokalu
+        type: string
+      miejscowosc:
+        description: Miejscowość
+        type: string
+      kod:
+        description: Kod pocztowy
+        type: string
+        pattern: '\d{5}'
+      email:
+        description: Adres email
+        type: string
+        format: email
+      tel:
+        description: Numer telefonu
+        type: string
+  CertificateDto:
+    description: Data Transfer Object używany w Response
+    type: object
+    properties:
+      idStrCAConfig:
+        description: CA Config Id
+        type: integer
+      serialNumber:
+        description: Serial Number
+        type: string
+      distinquishedName:
+        description: Distinguished Name
+        type: string
+      notBefore:
+        description: Not Before
+        type: string
+        format: date-time
+      notAfter:
+        description: Not After
+        type: string
+        format: date-time
+      revokedEffectiveWhen:
+        description: Revoked Effective When
+        type: string
+        format: date-time
+      revokedReason:
+        description: Revoked Reason
+        type: integer
+      lastChange:
+        description: Last Change
+        type: string
+        format: date-time
+      idRawCerticate:
+        description: Identyfikator pliku PFX
+        type: integer
+    required:
+      - idStrCAConfig
+      - serialNumber
+      - notBefore
+      - notAfter
+  FieldError:
+    description: |
+      Aplikacja PKI
+      Błąd walidacji pola modelu
+    type: object
+    required:
+      - field
+      - code
+      - message
+    properties:
+      field:
+        description: Nazwa pola
+        type: string
+      code:
+        description: Kod błędu
+        type: string
+      message:
+        description: Opis błędu
+        type: string
+  ErrorInfo:
+    description: Error data object
+    type: object
+    properties:
+      docInfo:
+        description: Doc info
+        type: string
+      defaultMessage:
+        description: Default message
+        type: string
+      messageCode:
+        description: Message code
+        type: string
+      params:
+        description: Parameters
+        type: array
+        uniqueItems: false
+        items:
+          $ref: '#/definitions/Parameter'
+  Parameter:
+    description: Parameter object
+    type: object
+    properties:
+      name:
+        description: Parameter name
+        type: string
+      value:
+        description: Parameter value
+        type: string
+  ValidationErrorInfo:
+    description: |-
+      Aplikacja PKI
+      Informacja o błędzie walidacji modelu
+    type: object
+    required:
+      - url
+      - method
+      - message
+      - exception
+      - fieldErrors
+    properties:
+      url:
+        description: URL żądania
+        type: string
+      method:
+        description: Metoda HTTP
+        type: string
+      message:
+        description: Opis błędu
+        type: string
+      exception:
+        description: Klasa wyjątku
+        type: string
+      fieldErrors:
+        description: Błędy walidacji pola modelu
+        type: array
+        uniqueItems: false
+        items:
+          $ref: '#/definitions/FieldError'

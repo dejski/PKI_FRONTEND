@@ -10,7 +10,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let user of users ">
+          <tr *ngFor="let user of users" (click)="onSelect(user)" [class.selected]="user === selectedUser">
             <td>{{user.nazwisko}}</td>
             <td>{{user.pesel}}</td>
             <td>{{user.login}}</td>
@@ -25,4 +25,4 @@
     </div>
   </div>
 </div>
-<app-users-details></app-users-details>
+<app-users-details *ngIf="selectedUser" [user]="selectedUser"></app-users-details>

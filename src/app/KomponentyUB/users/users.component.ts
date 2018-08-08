@@ -1,3 +1,4 @@
+import { UzytkownikBranzowyFull } from './../models/uzytkownikBranzowyFull'
 import { Component, OnInit } from '@angular/core'
 
 import { UzytkownikBranzowy } from '../models/uzytkownikBranzowy'
@@ -8,6 +9,8 @@ import { UzytkownikBranzowy } from '../models/uzytkownikBranzowy'
   styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent implements OnInit {
+  selectedUser: UzytkownikBranzowy
+
   users: UzytkownikBranzowy[] = [
     {
       nazwisko: 'Kowalski',
@@ -28,4 +31,9 @@ export class UsersComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  onSelect(user: UzytkownikBranzowy): void {
+    this.selectedUser = user
+    // console.log(USERS[0])
+  }
 }

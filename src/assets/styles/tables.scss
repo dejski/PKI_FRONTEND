@@ -1,12 +1,12 @@
 .cs-table {
-  /* background: red; */
   th {
     font-weight: 700px;
     text-transform: uppercase;
     color: blue;
+    background: rgb(28, 199, 119);
   }
   td {
-    color: blue;
+    background: rgb(224, 250, 231);
   }
   .row-error {
     border-left: 2px solid red;
