@@ -1,0 +1,29 @@
+<div class="login">
+    <div>
+      <div class="login_wrapper">
+        <div class="animate form login_form">
+          <section class="login_content">
+            <form style="margin-top: 24vh" id="login-form">
+              <h1>Logowanie</h1>
+              <div class="col-xs-12">
+                <input type="text" class="form-control" placeholder="Login" [(ngModel)]="login" [ngModelOptions]="{standalone: true}" autofocus required/>
+              </div>
+              <div class="col-xs-12">
+                <input type="password" class="form-control" placeholder="Hasło" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" required/>
+              </div>
+              <div class="col-xs-12">
+                <button class="btn btn-sm btn-default submit" (click)="onLogin()"> 
+                  <i class="fa fa-sign-in" aria-hidden="true"></i> 
+                  Zaloguj
+                </button>
+                <div *ngIf="loginMessage !== ''"> {{ loginMessage }} </div>
+              </div>
+  
+  
+            </form>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+  
