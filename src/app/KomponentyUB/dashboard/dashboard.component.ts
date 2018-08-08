@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 })
 export class DashboardComponent implements OnInit {
   searchUserForm: FormGroup
+  czySzukanoUB: boolean
 
   constructor(private formBuilder: FormBuilder) {}
 
@@ -21,5 +22,14 @@ export class DashboardComponent implements OnInit {
       pesel: ['', [Validators.minLength(11), Validators.maxLength(11)]],
       login: ['', [Validators.minLength(11), Validators.maxLength(11)]],
     })
+  }
+
+  szukajUzytkownikowBranzowych() {
+    console.log('SZUKAM')
+    this.czySzukanoUB = true
+  }
+
+  wyczyscFormatkeSzukania() {
+    this.czySzukanoUB = false
   }
 }

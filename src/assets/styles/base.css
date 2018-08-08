@@ -1,14 +1,23 @@
+body {
+  background: rgb(213, 233, 252);
+}
+
+.body2 {
+  background: red;
+}
+
 .data-header {
   color: black;
   font-size: 22px;
   text-transform: uppercase;
   font-weight: 700px;
   margin: 15px;
+  /* background: rgb(213, 233, 252); */
 }
 
 .data-container {
   padding: 15px;
-  background: white;
+  /* background: rgb(213, 233, 252); */
   margin: 15px;
 }
 

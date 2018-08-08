@@ -1,5 +1,5 @@
 <div class="data-container">
-  <p class="data-header">Parametry wyszukiwania:</p>
+  <!-- <p class="data-header">Parametry wyszukiwania:</p> -->
   <form [formGroup]="searchUserForm">
     <div class="row form-group">
       <div class="col-sm-4">
@@ -19,12 +19,10 @@
       </div>
     </div>
     <div class="col-sm-12">
-      <button [disabled]="!searchUserForm.valid" type="submit" class="btn btn-primary">Szukaj</button>
+      <button (click)="szukajUzytkownikowBranzowych()" [disabled]="!searchUserForm.valid" type="submit" class="btn btn-primary">Szukaj</button>
+      <button (click)="wyczyscFormatkeSzukania()" class="btn btn-default">Wyczyść</button>
     </div>
   </form>
-  <pre>{{searchUserForm.value | json}}</pre>
-  <pre>nazwisko:{{searchUserForm.get('nazwisko').valid | json}}</pre>
-  <pre>pesel:{{searchUserForm.get('pesel').valid | json}}</pre>
-  <pre>login: {{searchUserForm.get('login').valid | json}}</pre>
-  <pre>form: {{searchUserForm.valid | json}}</pre>
 </div>
+<!-- <app-users *ngIf="czySzukanoUB"></app-users> -->
+<app-users></app-users>

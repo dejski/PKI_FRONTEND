@@ -6,8 +6,11 @@ import { BrowserModule } from '@angular/platform-browser'
 import { LoginComponent } from './account/login/login.component'
 import { AppComponent } from './app.component'
 import { AppConfig } from './app.config'
-import { CertificationComponent } from './certification/certification.component'
-import { DashboardComponent } from './dashboard/dashboard.component'
+import { DashboardComponent } from './KomponentyUB/dashboard/dashboard.component'
+import {
+  UsersDetailsComponent,
+} from './KomponentyUB/users-details/users-details.component'
+import { UsersComponent } from './KomponentyUB/users/users.component'
 import { MenuComponent } from './menu/menu.component'
 import { HttpContextService } from './rest/http-context.service'
 import { AppRoutingModule } from './routing'
@@ -18,9 +21,10 @@ import { LoginService } from './service/login.service'
   declarations: [
     AppComponent,
     DashboardComponent,
-    CertificationComponent,
     LoginComponent,
     MenuComponent,
+    UsersComponent,
+    UsersDetailsComponent,
   ],
   imports: [
     BrowserModule,

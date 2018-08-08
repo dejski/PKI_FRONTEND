@@ -1,0 +1,28 @@
+<div>
+  <div class="row">
+    <div class="col-sm-12 ">
+      <table *ngIf="users.length>0; else noUsersInfo" class="cs-table table table-active">
+        <thead>
+          <tr>
+            <th>Nazwisko</th>
+            <th>PESEL</th>
+            <th>Login</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users ">
+            <td>{{user.nazwisko}}</td>
+            <td>{{user.pesel}}</td>
+            <td>{{user.login}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <ng-template #noUsersInfo>
+        <div class="no-users-info">
+          <p>Nie znaleziono użytkownikow</p>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
+<app-users-details></app-users-details>
