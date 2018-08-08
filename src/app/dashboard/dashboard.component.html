@@ -4,20 +4,27 @@
     <div class="row form-group">
       <div class="col-sm-4">
         <label>Nazwisko:</label>
-        <input formControlName="nazwisko" class="form-control" type="text" placeholder="Nazwisko">
+        <input formControlName="nazwisko" pattern="[a-zA-Z ]*" class="form-control" type="text" placeholder="Nazwisko">
+        <p *ngIf="!searchUserForm.get('nazwisko').valid && searchUserForm.get('nazwisko').dirty" class="error">Nazwisko musi mieć conajmniej 3 litery!</p>
       </div>
       <div class="col-sm-4">
         <label>PESEL:</label>
-        <input formControlName="pesel" class="form-control" type="number" placeholder="PESEL">
+        <input formControlName="pesel" pattern="[0-9]{11}" class="form-control" type="number" placeholder="PESEL">
+        <p *ngIf="!searchUserForm.get('pesel').valid && searchUserForm.get('pesel').dirty" class="error">PESEL musi mieć 11 cyfr!</p>
       </div>
       <div class="col-sm-4">
         <label>LOGIN:</label>
         <input formControlName="login" class="form-control" type="text" placeholder="LOGIN">
+        <p *ngIf="!searchUserForm.get('login').valid && searchUserForm.get('login').dirty" class="error">Login musi mieć 11 znakow</p>
       </div>
     </div>
     <div class="col-sm-12">
-      <button type="submit" class="btn btn-primary">Szukaj</button>
+      <button [disabled]="!searchUserForm.valid" type="submit" class="btn btn-primary">Szukaj</button>
     </div>
   </form>
   <pre>{{searchUserForm.value | json}}</pre>
+  <pre>nazwisko:{{searchUserForm.get('nazwisko').valid | json}}</pre>
+  <pre>pesel:{{searchUserForm.get('pesel').valid | json}}</pre>
+  <pre>login: {{searchUserForm.get('login').valid | json}}</pre>
+  <pre>form: {{searchUserForm.valid | json}}</pre>
 </div>

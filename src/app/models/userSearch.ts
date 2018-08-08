@@ -1,5 +1,5 @@
 export interface UserSearch {
   nazwisko: string
-  pesel: number
+  pesel: string
   login: string
 }
