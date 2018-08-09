@@ -1,4 +1,3 @@
-import { UzytkownikBranzowyFull } from './../models/uzytkownikBranzowyFull'
 import { Component, OnInit } from '@angular/core'
 
 import { UzytkownikBranzowy } from '../models/uzytkownikBranzowy'
@@ -15,19 +14,20 @@ export class UsersComponent implements OnInit {
     {
       nazwisko: 'Kowalski',
       pesel: '12345679811',
-      login: 'asdqwezxcasd',
+      login: 'CN=NOTA200000000000001,OU=NOTA,OU=PDCBDKW,DC=rejestrpd,DC=ms,DC=gov,DC=pl',
     },
     {
       nazwisko: 'Nowak',
       pesel: '12345679812',
-      login: 'asdqwezxcasd',
+      login: 'CN=NOTA200000000000002,OU=NOTA,OU=PDCBDKW,DC=rejestrpd,DC=ms,DC=gov,DC=pl',
     },
     {
       nazwisko: 'Wydźga',
       pesel: '12345679813',
-      login: 'asdqwezxcasd',
+      login: 'CN=NOTA200000000000003,OU=NOTA,OU=PDCBDKW,DC=rejestrpd,DC=ms,DC=gov,DC=pl',
     },
   ]
+
   constructor() {}
 
   ngOnInit() {}

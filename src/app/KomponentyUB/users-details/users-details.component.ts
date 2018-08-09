@@ -1,7 +1,8 @@
+import { Component, Input, OnInit } from '@angular/core'
+
+import { PkiSvcAdregistryService } from '../../services/pki-svc-adregistry.service'
+import { UzytkownikAD } from '../models/uzytkownikAD'
 import { UzytkownikBranzowy } from './../models/uzytkownikBranzowy'
-import { Component, OnInit, Input } from '@angular/core'
-import { UzytkownikBranzowyFull } from '../models/uzytkownikBranzowyFull'
-import { USERS } from './../../services/usersUB-mock'
 
 @Component({
   selector: 'app-users-details',
@@ -11,11 +12,21 @@ import { USERS } from './../../services/usersUB-mock'
 export class UsersDetailsComponent implements OnInit {
   @Input()
   user: UzytkownikBranzowy
-  userFull: UzytkownikBranzowyFull
+  userFull: UzytkownikAD
 
-  constructor() {}
+  constructor(private adRegistryService: PkiSvcAdregistryService) {}
 
   ngOnInit() {
-    this.userFull = USERS[0]
+    // this.loadUserAD(this.user.login)
+  }
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnChanges() {
+    this.loadUserAD(this.user.login)
+  }
+
+  loadUserAD(nazwa): void {
+    this.adRegistryService.getUser(nazwa).subscribe(userFull => {
+      this.userFull = userFull
+    })
   }
 }

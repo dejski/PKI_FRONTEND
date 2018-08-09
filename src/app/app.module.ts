@@ -16,6 +16,7 @@ import { HttpContextService } from './rest/http-context.service'
 import { AppRoutingModule } from './routing'
 import { AreaService } from './service/area.service'
 import { LoginService } from './service/login.service'
+import { PkiSvcAdregistryService } from './services/pki-svc-adregistry.service'
 
 @NgModule({
   declarations: [
@@ -33,7 +34,13 @@ import { LoginService } from './service/login.service'
     ReactiveFormsModule,
     AppRoutingModule,
   ],
-  providers: [AppConfig, HttpContextService, LoginService, AreaService],
+  providers: [
+    AppConfig,
+    HttpContextService,
+    LoginService,
+    AreaService,
+    PkiSvcAdregistryService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

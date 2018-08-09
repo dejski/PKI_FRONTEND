@@ -1,12 +1,11 @@
-{{user.nazwisko}}
+<p>{{user?.login}}</p>
+<p>{{userFull?.nazwa}}</p>
+
 
 <div>
   <div class="row">
     <div class="col-sm-12 ">
-      <ul>
-        <li>{{userFull.distinquishedName}}</li>
-        {{userFull.imie}} {{userFull.nazwisko}} {{userFull.nazwa}} {{userFull.imie}} {{userFull.imie}} {{userFull.opis}} {{userFull.status}}
-      </ul>
+      <pre>{{userFull | json}} </pre>
     </div>
   </div>
 </div>
