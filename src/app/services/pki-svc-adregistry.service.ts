@@ -4,6 +4,7 @@ import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 
 import { UzytkownikAD } from './../KomponentyUB/models/uzytkownikAD'
+import { UzytkownikBranzowyFull } from './../KomponentyUB/models/uzytkownikBranzowyFull'
 
 @Injectable({
   providedIn: 'root',
@@ -14,12 +15,12 @@ export class PkiSvcAdregistryService {
   constructor(private http: Http) {}
 
   getUser(nazwa): Observable<UzytkownikAD> {
-    console.log(nazwa)
+    // console.log(nazwa)
     return this.http.get(this.apiUrl + nazwa).pipe(map(res => res.json()))
   }
 
-  getUserFull(nazwa): Observable<UzytkownikAD> {
-    console.log(nazwa)
+  getUserFull(nazwa): Observable<UzytkownikBranzowyFull> {
+    // console.log('getUserFull ' + nazwa)
     return this.http.get(this.apiUrlUserFull + '/' + nazwa).pipe(map(res => res.json()))
   }
 }

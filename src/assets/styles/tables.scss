@@ -2,13 +2,27 @@
   th {
     font-weight: 700px;
     text-transform: uppercase;
-    color: blue;
+    color: black;
     background: rgb(28, 199, 119);
   }
   td {
     background: rgb(224, 250, 231);
   }
-  .row-error {
-    border-left: 2px solid red;
+}
+
+.cs-table-sm {
+  th {
+    font-weight: 200px;
+    text-transform: uppercase;
+    background: rgb(28, 199, 119);
+  }
+  td {
+    background: rgb(223, 255, 255);
+  }
+}
+
+.cs-t1 {
+  th {
+    text-transform: uppercase;
   }
 }

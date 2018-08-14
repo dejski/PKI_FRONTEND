@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core'
 
 import { PkiSvcAdregistryService } from '../../services/pki-svc-adregistry.service'
 import { UzytkownikAD } from '../models/uzytkownikAD'
+import { UzytkownikBranzowyFull } from '../models/uzytkownikBranzowyFull'
 import { UzytkownikBranzowy } from './../models/uzytkownikBranzowy'
 
 @Component({
@@ -13,11 +14,13 @@ export class UsersDetailsComponent implements OnInit {
   @Input()
   user: UzytkownikBranzowy
   userFull: UzytkownikAD
+  userFull2: UzytkownikBranzowyFull
 
   constructor(private adRegistryService: PkiSvcAdregistryService) {}
 
   ngOnInit() {
     // this.loadUserAD(this.user.login)
+    // this.loadUserBranzowyFull(this.user.login)
   }
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnChanges() {
@@ -33,7 +36,7 @@ export class UsersDetailsComponent implements OnInit {
 
   loadUserBranzowyFull(nazwa: string) {
     this.adRegistryService.getUserFull(nazwa).subscribe(userFull => {
-      this.userFull = userFull
+      this.userFull2 = userFull
     })
   }
 }

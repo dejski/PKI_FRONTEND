@@ -1,11 +1,112 @@
-<p>{{user?.login}}</p>
-<p>{{userFull?.nazwa}}</p>
+<!-- <p>{{user?.login}}</p>
+<p>{{userFull?.nazwa}}</p> -->
 
 
 <div>
   <div class="row">
-    <div class="col-sm-12 ">
-      <pre>{{userFull | json}} </pre>
+    <div class="col-sm-12">
+      <table class="cs-t1 table table-primary">
+        <tbody>
+          <tr>
+            <th>Imię</th>
+            <td>{{userFull2?.imie}}</td>
+          </tr>
+          <tr>
+            <th>Nazwisko</th>
+            <td>{{userFull2?.nazwisko}}</td>
+          </tr>
+          <tr>
+            <th>login</th>
+            <td>{{userFull2?.login}}</td>
+          </tr>
+          <tr>
+            <th>distinquishedName</th>
+            <td>{{userFull2?.distinquishedName}}</td>
+          </tr>
+          <tr>
+            <th>Opis</th>
+            <th>{{userFull2?.opis}}</th>
+          </tr>
+          <tr>
+            <th>status</th>
+            <td>{{userFull2?.status}}</td>
+          </tr>
+          <tr>
+            <th>typ</th>
+            <td>{{userFull2?.typ}}</td>
+          </tr>
+          <tr>
+            <th>pesel</th>
+            <td>{{userFull2?.pesel}}</td>
+          </tr>
+          <tr>
+            <th>nip</th>
+            <td>{{userFull2?.nip}}</td>
+          </tr>
+          <tr>
+            <th>adres</th>
+            <td>{{userFull2?.adres}}</td>
+          </tr>
+          <tr>
+            <th>organizacja</th>
+            <td>{{userFull2?.organizacja}}</td>
+          </tr>
+          <tr>
+            <th>uprawnienie</th>
+            <td>
+              <table class="cs-table-sm table-primary ">
+                <thead>
+                  <th>commonName</th>
+                  <!-- <th>distinquishedName</th> -->
+                  <th>description</th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let uprawnienie of userFull2?.uprawnienie">
+                    <td> {{ uprawnienie.commonName }} </td>
+                    <!-- <td> {{ uprawnienie.distinquishedName }} </td> -->
+                    <td> {{ uprawnienie.description }} </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <th>certyfikat</th>
+            <td>
+              <table class="cs-table table-primary ">
+                <thead>
+                  <th>idStrCAConfig</th>
+                  <th>serialNumber</th>
+                  <th>notBefore</th>
+                  <th>notAfter</th>
+                  <th>revokedEffectiveWhen</th>
+                  <th>revokedReason</th>
+                  <th>lastChange</th>
+                  <th>idRawCerticate</th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let certyfikat of userFull2?.certyfikat">
+                    <td>{{certyfikat.idStrCAConfig}}</td>
+                    <td>{{certyfikat.serialNumber}}</td>
+                    <td>{{certyfikat.notBefore}}</td>
+                    <td>{{certyfikat.notAfter}}</td>
+                    <td>{{certyfikat.revokedEffectiveWhen}}</td>
+                    <td>{{certyfikat.revokedReason}}</td>
+                    <td>{{certyfikat.lastChange}}</td>
+                    <td>{{certyfikat.idRawCerticate}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
+
+
+
+
+
+<!-- <pre>{{userFull2 | json}} </pre> -->
