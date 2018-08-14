@@ -21,11 +21,18 @@ export class UsersDetailsComponent implements OnInit {
   }
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnChanges() {
-    this.loadUserAD(this.user.login)
+    // this.loadUserAD(this.user.login)
+    this.loadUserBranzowyFull(this.user.login)
   }
 
   loadUserAD(nazwa): void {
     this.adRegistryService.getUser(nazwa).subscribe(userFull => {
+      this.userFull = userFull
+    })
+  }
+
+  loadUserBranzowyFull(nazwa: string) {
+    this.adRegistryService.getUserFull(nazwa).subscribe(userFull => {
       this.userFull = userFull
     })
   }
